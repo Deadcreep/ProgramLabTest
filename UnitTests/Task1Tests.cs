@@ -35,6 +35,7 @@ namespace UnitTests
         //Первое значение - площадь пересечения
         List<(int, Rectangle)> intersectingRectangles = new List<(int, Rectangle)>{
             ( 32, new Rectangle(new Vector2Int(2, 6), 4, 8)),
+            ( 1, new Rectangle(new Vector2Int(2, 3), 3, 1)),
             ( 1, new Rectangle(new Vector2Int(3, 5), 1, 1)),
             ( 1, new Rectangle(new Vector2Int(5, 7), 2, 1)),
             ( 1, new Rectangle(new Vector2Int(5, 3), 2, 1)),

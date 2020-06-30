@@ -5,16 +5,20 @@ namespace Assets.Scripts.Task1
 {
     public class Rectangle
     {
-        public Vector2Int StartCoords { get; private set; }
-        public int Width { get; private set; }
-        public int Length { get; private set; }
+        public int LeftX { get; private set; }
+        public int RightX { get => LeftX + length; }
+        public int UpperY { get; private set; }
+        public int BottomY { get => UpperY - width; }
+
+        private int length;
+        private int width;
 
         public Rectangle(Vector2Int startCoords, int width, int length)
         {
-            this.StartCoords = startCoords;
-            this.Width = width;
-            this.Length = length;
+            LeftX = startCoords.x;
+            UpperY = startCoords.y;
+            this.width = width;
+            this.length = length;
         }
-        public Rectangle() { }
     }
 }

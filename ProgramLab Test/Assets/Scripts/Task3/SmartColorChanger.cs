@@ -9,9 +9,9 @@ namespace Assets.Scripts.Task3
     {
         private Material material;
         private Vector3 oldPosition;
+
         void Start()
         {
-
             material = GetComponent<Renderer>().material;
         }
 
@@ -26,6 +26,7 @@ namespace Assets.Scripts.Task3
             if (eventData.button == PointerEventData.InputButton.Left)
                 oldPosition = transform.position;
         }
+
         private void ChangeColor()
         {
             material.color = Random.ColorHSV();

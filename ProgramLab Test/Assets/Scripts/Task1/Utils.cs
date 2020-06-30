@@ -4,7 +4,7 @@
     {
         public static bool CheckFirstRectangleIsLeft(Rectangle first, Rectangle second)
         {
-            if (first.StartCoords.x <= second.StartCoords.x)
+            if (first.LeftX <= second.LeftX)
                 return true;
             else
                 return false;

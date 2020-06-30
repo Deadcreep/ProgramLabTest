@@ -6,22 +6,21 @@ namespace Assets.Scripts.Task1
 {
     public static class RectangleIntersection
     {
-        /// <returns>Возвращает площадь пересечения прямоугольников. Если прямоугольники не пересекаются, то возвращает ноль</returns>
-        //Верхняя у-координата - минимальная из двух исходных верхних
-        //Нижняя у-координата - максимальная из двух исходных нижних
-        //Левая х-координата - максильная из двух исходных левых
-        //Правая х-координата - минимальная из двух исходных правых
+        /// <returns>Возвращает площадь пересечения прямоугольников. Если прямоугольники не пересекаются, то возвращает ноль</returns>        
         public static int GetIntersectionArea(Rectangle firstRectangle, Rectangle secondRectangle)
         {
             if (CheckIntersection(firstRectangle, secondRectangle))
             {
-                Vector2Int startCoords = new Vector2Int(Math.Max(firstRectangle.StartCoords.x, secondRectangle.StartCoords.x),
-                                                  Math.Min(firstRectangle.StartCoords.y, secondRectangle.StartCoords.y));
+                //Координаты левого верхнего угла
+                Vector2Int startCoords = new Vector2Int(
+                    Math.Max(firstRectangle.LeftX, secondRectangle.LeftX),
+                    Math.Min(firstRectangle.UpperY, secondRectangle.UpperY)
+                    );
                 //Координаты правого нижнего угла
-                Vector2Int endCoords = new Vector2Int(Math.Min(firstRectangle.StartCoords.x + firstRectangle.Length,
-                                                               secondRectangle.StartCoords.x + secondRectangle.Length),
-                                                      Math.Max(firstRectangle.StartCoords.y - firstRectangle.Width,
-                                                               secondRectangle.StartCoords.y - secondRectangle.Width));
+                Vector2Int endCoords = new Vector2Int(
+                    Math.Min(firstRectangle.RightX, secondRectangle.RightX),
+                    Math.Max(firstRectangle.BottomY, secondRectangle.BottomY)
+                    );
                 int length = endCoords.x - startCoords.x;
                 int width = startCoords.y - endCoords.y;
                 return length * width;
@@ -31,13 +30,11 @@ namespace Assets.Scripts.Task1
         }
 
 
-        //Если левая грань правого прямоугольника лежит правее правой грани левого или совпадает с ней,
-        //либо нижняя грань правого выше верхней левого или совпадает с ней,
-        //либо верхняя грань правого ниже нижней левого, то они не пересекаются.
         public static bool CheckIntersection(Rectangle firstRectangle, Rectangle secondRectangle)
         {
             Rectangle leftRectangle;
             Rectangle rightRectangle;
+
             if (Utils.CheckFirstRectangleIsLeft(firstRectangle, secondRectangle))
             {
                 leftRectangle = firstRectangle;
@@ -49,9 +46,9 @@ namespace Assets.Scripts.Task1
                 rightRectangle = firstRectangle;
             }
 
-            if (rightRectangle.StartCoords.x >= leftRectangle.StartCoords.x + leftRectangle.Length
-                || leftRectangle.StartCoords.y <= rightRectangle.StartCoords.y - rightRectangle.Width
-                || rightRectangle.StartCoords.y <= leftRectangle.StartCoords.y - leftRectangle.Width)
+            if (rightRectangle.LeftX >= leftRectangle.RightX
+                || leftRectangle.UpperY <= rightRectangle.BottomY
+                || rightRectangle.UpperY <= leftRectangle.BottomY)
                 return false;
             else
                 return true;
